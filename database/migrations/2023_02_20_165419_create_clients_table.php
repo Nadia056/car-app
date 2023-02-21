@@ -20,7 +20,7 @@ return new class extends Migration
             $table->enum('role', ['user', 'admin'])->default('user');
             $table->boolean('active')->default(false);
             $table->string('activation_code')->nullable();
-            $table->string('remember_token')->nullable();
+
             $table->timestamps();
         });
     }

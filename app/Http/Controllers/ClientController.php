@@ -85,5 +85,12 @@ class ClientController extends Controller
         $client->save();
         return response()->json('confirmed');
     }
-    
+    public function showOne($id)
+    {
+        $client = Client::find($id);
+        if (!$client) {
+            return response()->json('not found');
+        }
+        return response()->json(['cliente'=>$client]);
+    }
 }

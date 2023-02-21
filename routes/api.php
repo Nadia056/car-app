@@ -23,29 +23,36 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
 Route::post('/clients', [ClientController::class, 'store']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/active/{id}', [AuthController::class, 'active']);
 Route::post('/logout', [AuthController::class, 'logout']);
 
+
 Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/clients/{id}', [ClientController::class, 'showOne'])->middleware(CheckRole::class . ':admin');
     Route::get('/clients', [ClientController::class, 'show'])->middleware(CheckRole::class . ':admin');
     Route::put('/clients/{id}', [ClientController::class, 'update'])->middleware(CheckRole::class . ':admin');
     Route ::delete('/clients/{id}', [ClientController::class, 'delete'])->middleware(CheckRole::class . ':admin');
 });
 
 Route::middleware('auth:sanctum')->group(function () {
+    
     Route::get('/bikes', [BikeController::class, 'show']);
+    Route::get('/bikes/{id}', [BikeController::class, 'showone']);
     Route::post('/bikes', [BikeController::class, 'store'])->middleware(CheckRole::class . ':admin');
     Route::put('/bikes/{id}', [BikeController::class, 'update'])->middleware(CheckRole::class . ':admin');
     Route::delete('/bikes/{id}', [BikeController::class, 'delete'])->middleware(CheckRole::class . ':admin');
 });
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/cars', [CarController::class, 'show']);
+    Route::get('/cars/{id}', [CarController::class, 'showone']);
     Route::post('/cars', [CarController::class, 'store'])->middleware(CheckRole::class . ':admin');
     Route::put('/cars/{id}', [CarController::class, 'update'])->middleware(CheckRole::class . ':admin');
     Route ::delete('/cars/{id}', [CarController::class, 'delete'])->middleware(CheckRole::class . ':admin');
 });
+
 
 
 

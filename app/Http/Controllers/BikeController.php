@@ -14,6 +14,15 @@ class BikeController extends Controller
         return response()->json(['bikes'=>$bike]);
 
     }
+    public function showone($id)
+    {
+        $bike = Bike::find($id);
+        if (!$bike) {
+            return response()->json('not found');
+        }
+        return response()->json(['bike'=>$bike]);
+
+    }
 
     public function store (Request $request)
     {
