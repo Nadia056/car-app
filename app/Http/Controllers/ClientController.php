@@ -43,8 +43,8 @@ class ClientController extends Controller
         $client->save();
         $random=$client->activation_code;
         $url = URL::temporarySignedRoute(
-            'test',
-            now()->addMinute(20),
+            'confirm',
+            now()->addMinute(5),
             ['id' => $client->id]
         );
         SendActivationCode::dispatch($client, $url,$random)
