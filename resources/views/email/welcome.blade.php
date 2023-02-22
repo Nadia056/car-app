@@ -20,8 +20,8 @@
 
 <body>
     <h1> Hola {{$name}} bienvenido a mi pagina web</h1>
-    <pre>Para confirmar ti¿u correo reciviras a el codigo al 
-        numero que proporsionaste</pre>
+    <p>Para confirmar tu correo reciviras a el codigo al</p>
+    <p>numero que proporsionaste</p>
     
 </body>
 
