@@ -24,11 +24,10 @@ class AuthController extends Controller
             ]);
         }
         $token = $user->createToken('auth_token')->plainTextToken;
-        return response()->json([
-            'access_token' => $token,
-            'token_type' => 'Bearer',
-            'user' => $user
-        ]);
+        return response()->json(
+          $token
+           
+        );
        
     }
     public function logout(Request $request)
@@ -52,7 +51,7 @@ class AuthController extends Controller
         }
         if ($request->activation_code !== $client->activation_code) {
             return response()->json([
-                'error' => 'Invalid credentials'
+                'error' => 'Invalid activation code'
             ]);
         }
     
@@ -62,6 +61,7 @@ class AuthController extends Controller
             'message' => 'Successfully activated user!',
             'user' => $client
         ]);
+        
     }
     
 }

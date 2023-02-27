@@ -28,6 +28,7 @@ Route::post('/clients', [ClientController::class, 'store']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/active/{id}', [AuthController::class, 'active']);
 Route::post('/logout', [AuthController::class, 'logout']);
+Route::post('/getuser', [ClientController::class, 'returnUser']);
 
 
 Route::middleware('auth:sanctum')->group(function () {

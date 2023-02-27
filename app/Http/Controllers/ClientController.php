@@ -22,8 +22,8 @@ class ClientController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
+            'email' => 'required|string|email|max:255',
+            'password' => 'required|string|confirmed',
             'phone' => 'required|string|min:10'
 
         ]);
@@ -48,10 +48,10 @@ class ClientController extends Controller
             ['id' => $client->id]
         );
         SendActivationCode::dispatch($client, $url,$random)
-            ->delay(now()->addSeconds(10))
+            ->delay(now()->addSeconds(1))
             ->onqueue('emailcodigo');
         SendMail::dispatch($client,$random)
-            ->delay(now()->addSeconds(10))
+            ->delay(now()->addSeconds(1))
             ->onqueue('emailcodigo');
 
         return response()->json([
@@ -92,5 +92,14 @@ class ClientController extends Controller
             return response()->json('not found');
         }
         return response()->json(['cliente'=>$client]);
+    }
+    //returna el id 
+    public function returnUser(Request $request)
+    {
+        $client = Client::where('email', $request->email)->first();
+        if (!$client) {
+            return response()->json('not found');
+        }
+        return response()->json(['id'=>$client->id]);
     }
 }
