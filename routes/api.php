@@ -36,6 +36,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/clients', [ClientController::class, 'show'])->middleware(CheckRole::class . ':admin');
     Route::put('/clients/{id}', [ClientController::class, 'update'])->middleware(CheckRole::class . ':admin');
     Route ::delete('/clients/{id}', [ClientController::class, 'delete'])->middleware(CheckRole::class . ':admin');
+    Route::get('/allusers', [ClientController::class, 'Users'])->middleware(CheckRole::class . ':admin');
 });
 
 Route::middleware('auth:sanctum')->group(function () {

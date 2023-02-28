@@ -14,10 +14,11 @@ return new class extends Migration
         Schema::create('clients', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('email');
+            $table->string('email') ->unique();
             $table->string('password');
             $table->string('phone')->nullable();
-            $table->enum('role', ['user', 'admin'])->default('user');
+            $table->unsignedBigInteger('role')->default('1');
+            $table->foreign('role')->references('id')->on('roles');
             $table->boolean('active')->default(false);
             $table->integer('activation_code')->nullable();
 
