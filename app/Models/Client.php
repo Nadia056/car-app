@@ -14,6 +14,7 @@ class Client extends Authenticatable
         'email',
         'password',
         'phone',
+        'role',
         'activation_code',
         'active',];
     use HasFactory;
