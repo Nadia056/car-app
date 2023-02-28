@@ -11,7 +11,7 @@ class BikeController extends Controller
     public function show()
     {
         $bike = Bike::all();
-        return response()->json(['bikes'=>$bike]);
+        return response()->json($bike);
 
     }
     public function showone($id)

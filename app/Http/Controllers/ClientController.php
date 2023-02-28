@@ -34,7 +34,7 @@ class ClientController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role' => 'user',
+            'role' => 1,
             'active' => false,
             'phone' => $request->phone,
             'activation_code' => random_int(1000, 9999)
@@ -50,9 +50,9 @@ class ClientController extends Controller
         SendActivationCode::dispatch($client, $url,$random)
             ->delay(now()->addSeconds(1))
             ->onqueue('emailcodigo');
-        SendMail::dispatch($client,$random)
-            ->delay(now()->addSeconds(1))
-            ->onqueue('emailcodigo');
+        // SendMail::dispatch($client,$random)
+        //     ->delay(now()->addSeconds(1))
+        //     ->onqueue('emailcodigo');
 
         return response()->json([
             'message' => 'Successfully created user!',

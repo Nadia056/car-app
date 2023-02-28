@@ -41,7 +41,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
 Route::middleware('auth:sanctum')->group(function () {
     
-    Route::get('/bikes', [BikeController::class, 'show']);
+    Route::get('/bikes', [BikeController::class, 'show'])->middleware(CheckRole::class . ':admin');
     Route::get('/bikes/{id}', [BikeController::class, 'showone']);
     Route::post('/bikes', [BikeController::class, 'store'])->middleware(CheckRole::class . ':admin');
     Route::put('/bikes/{id}', [BikeController::class, 'update'])->middleware(CheckRole::class . ':admin');
