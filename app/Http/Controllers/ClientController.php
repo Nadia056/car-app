@@ -22,7 +22,7 @@ class ClientController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255',
+            'email' => 'required|string|email|max:255 |unique',
             'password' => 'required|string|confirmed',
             'phone' => 'required|string|min:10'
 
@@ -101,5 +101,10 @@ class ClientController extends Controller
             return response()->json('not found');
         }
         return response()->json(['id'=>$client->id]);
+    }
+    public function Users()
+    {
+        $client=Client::all();
+        return response()->json($client);
     }
 }

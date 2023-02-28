@@ -13,20 +13,20 @@ class AuthController extends Controller
     {
         $user = Client::where('email', $request->email)->first();
         if (!$user || !Hash::check($request->password, $user->password)) {
-            return response()->json([
-                'error' => 'Invalid credentials'
-            ]);
+            return response()->json(
+                400
+            );
         }
 
         if ($user->active==0) {
-            return response()->json([
-                'error' => 'Your account is not activated yet. Please check your email to activate your account.'
-            ]);
+            return response()->json( 
+                401
+          );
         }
         $token = $user->createToken('auth_token')->plainTextToken;
         return response()->json(
-          $token
-           
+          $token,
+            200  
         );
        
     }
@@ -62,6 +62,12 @@ class AuthController extends Controller
             'user' => $client
         ]);
         
+    }
+
+    public function role(Request $request)
+    {
+        $user = $request->user();
+        return response()->json($user->role);
     }
     
 }
