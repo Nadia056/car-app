@@ -12,6 +12,7 @@ class roles extends Seeder
      * Run the database seeds.
      */
     public function run(): void
+    
     {
         Rol::create([
             'name' => 'admin',

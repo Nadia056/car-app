@@ -19,6 +19,7 @@ class admin extends Seeder
         $admin->email = 'admin123@gmail.ocm';
         $admin->password = '12345678';
         $admin->phone='8717453045';
+        
         $admin->role= 1;
         $admin->active=1;
         
