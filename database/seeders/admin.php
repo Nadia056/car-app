@@ -6,6 +6,7 @@ use App\Models\Client;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class admin extends Seeder
 {
@@ -16,10 +17,10 @@ class admin extends Seeder
     {
         $admin = new Client();
         $admin->name = 'admin';
-        $admin->email = 'admin123@gmail.ocm';
-        $admin->password = '12345678';
+        $admin->email = 'admin123@gmail.com';
+        $admin->password =Hash::make( '12345678');
         $admin->phone='8717453045';
-        $admin->role= 1;
+        $admin->role= 2;
         $admin->active=1;
         
         $admin->save();
