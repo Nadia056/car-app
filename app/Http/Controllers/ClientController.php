@@ -27,8 +27,12 @@ class ClientController extends Controller
             'phone' => 'required|string|min:10'
 
         ]);
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
+        
+        if ($request->password != $request->password_confirmation) {
+            return response()->json(400);
+        }
+        if(Client::where('email',$request->email)->first()){
+            return response()->json(401);
         }
         $client = Client::create([
             'name' => $request->name,
@@ -54,11 +58,7 @@ class ClientController extends Controller
         //     ->delay(now()->addSeconds(1))
         //     ->onqueue('emailcodigo');
 
-        return response()->json([
-            'message' => 'Successfully created user!',
-            'validacion'=>'Active your account you will recive and email and a phone '
-
-        ], 201);
+        return response()->json( 201);
     }
     public function update(Request $request, $id)
     {
