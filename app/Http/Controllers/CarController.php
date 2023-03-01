@@ -11,7 +11,7 @@ class CarController extends Controller
     public function show()
     {
         $car = Car::all();
-        return response()->json(['cars'=>$car]);
+        return response()->json($car);
 
     }
     public function showone($id)
