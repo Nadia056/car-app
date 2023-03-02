@@ -17,6 +17,7 @@ class VehicleController extends Controller
         ]);
        
         $bike->save();
+        return response()->json(200);
         
 
     }
@@ -28,6 +29,7 @@ class VehicleController extends Controller
         ]);
        
         $bike->save();
+        return response()->json(200);
         
 
     }
