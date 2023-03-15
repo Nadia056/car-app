@@ -22,7 +22,7 @@ class CheckRole
 
         if ($role== 1 || $role==3)
         {
-            abort(403, 'Unauthorized');
+            return response()->json(401);
         }
         
 

@@ -60,6 +60,8 @@ class ClientController extends Controller
 
         return response()->json( 201);
     }
+
+
     public function update(Request $request, $id)
     {
         $client = Client::find($id);
@@ -85,13 +87,16 @@ class ClientController extends Controller
         $client->save();
         return response()->json('confirmed');
     }
+
+
+    
     public function showOne($id)
     {
         $client = Client::find($id);
         if (!$client) {
             return response()->json('not found');
         }
-        return response()->json(['cliente'=>$client]);
+        return response()->json($client);
     }
     //returna el id 
     public function returnUser(Request $request)

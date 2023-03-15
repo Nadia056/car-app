@@ -33,9 +33,11 @@ Route::post('/getuser', [ClientController::class, 'returnUser']);
 
 
 Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/CarUser/{id}', [VehicleController::class, 'CarUSer']);
+    Route::get('/BikeUser/{id}', [VehicleController::class, 'BikeUSer']);
     Route::post('/CAR',[VehicleController::class,'RegisterCar']);
     Route::post('/BIKE',[VehicleController::class,'RegisterBike']);
-    Route::get('/clients/{id}', [ClientController::class, 'showOne'])->middleware(CheckRole::class . ':admin');
+    Route::get('/clients/{id}', [ClientController::class, 'showOne']);
     Route::get('/clients', [ClientController::class, 'show'])->middleware(CheckRole::class . ':admin');
     Route::put('/clients/{id}', [ClientController::class, 'update'])->middleware(CheckRole::class . ':admin');
     Route ::delete('/clients/{id}', [ClientController::class, 'delete'])->middleware(CheckRole::class . ':admin');

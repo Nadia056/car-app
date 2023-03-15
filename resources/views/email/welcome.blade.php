@@ -12,7 +12,7 @@
             font-family: Normal;
         }
 
-        .success {
+        h1 {
             color: #808000;
         }
     </style>

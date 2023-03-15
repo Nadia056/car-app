@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Bike;
 use App\Models\BikeCar;
 use App\Models\CarBike;
+use App\Models\Client;
 use Illuminate\Http\Request;
 
 class VehicleController extends Controller
@@ -32,5 +33,21 @@ class VehicleController extends Controller
         return response()->json(200);
         
 
+    }
+    public function CarUSer($id)
+    {
+       //retur all the cars that a user has
+         $car=CarBike::where('user_id',$id)->get();
+            return response()->json($car);
+
+        
+    }
+    public function BikeUSer($id)
+    {
+       //retur all the bikes that a user has
+         $bike=BikeCar::where('user_id',$id)->get();
+            return response()->json($bike);
+
+        
     }
 }
