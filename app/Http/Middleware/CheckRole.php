@@ -20,7 +20,7 @@ class CheckRole
         $role=$user['role']; // matriz
     
 
-        if ($role== 1 || $role==3)
+        if ($role== 2 )
         {
             return response()->json(401);
         }

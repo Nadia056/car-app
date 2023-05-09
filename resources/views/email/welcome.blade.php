@@ -19,10 +19,13 @@
 </head>
 
 <body>
+
     <h1> Hola {{$name}} bienvenido a mi pagina web</h1>
-    <p>Para confirmar tu correo reciviras a el codigo al</p>
-    <p>numero que proporsionaste</p>
-    <p>{{$random}}</p>
+    <p>Gracias por registrarte, has click en el link e ingresa el numero de confirmacion </p>
+    <p>Numero de Confirmacion:{{$random}}</p>
+    <a href="http://localhost:4200/activate?id={{$id}}" class="btn">Activar Cuenta</a>
+
+
     
 </body>
 

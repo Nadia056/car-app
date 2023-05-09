@@ -15,9 +15,14 @@ class ClientController extends Controller
     public function show()
     {
         $client = Client::all();
-        return response()->json(['clientes'=>$client]);
+        return $client;
 
     }
+    public function index(Request $request)
+    {
+        $user = $request->user();
+        return $user;
+    }   
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -38,7 +43,7 @@ class ClientController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role' => 1,
+            'role' => 2,
             'active' => false,
             'phone' => $request->phone,
             'activation_code' => random_int(1000, 9999)
@@ -112,4 +117,7 @@ class ClientController extends Controller
         $client=Client::all();
         return response()->json($client);
     }
+
+
+
 }

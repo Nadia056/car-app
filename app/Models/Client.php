@@ -17,6 +17,8 @@ class Client extends Authenticatable
         'role',
         'activation_code',
         'active',];
+
+        
     use HasFactory;
     use HasApiTokens;
   

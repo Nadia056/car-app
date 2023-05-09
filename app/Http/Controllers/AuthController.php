@@ -6,6 +6,7 @@ use App\Models\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use tidy;
 
 class AuthController extends Controller
 {
@@ -13,32 +14,33 @@ class AuthController extends Controller
     {
         $user = Client::where('email', $request->email)->first();
         if (!$user || !Hash::check($request->password, $user->password)) {
-            return response()->json(
-                400
-            );
+            return response()->json([
+                'error' => 'Invalid credentials'
+            ],400);
         }
 
         if ($user->active==0) {
-            return response()->json( 
-                401
-          );
+            return response()-> json([
+                'error' => 'Please activate your account'
+            ],400);
+          
         }
         $token = $user->createToken('auth_token')->plainTextToken;
-        return response()->json(
-          $token,
-            200  
-        );
+        return response()->json([
+            'token' => $token,
+        ],200
+);
        
     }
     public function logout(Request $request)
+
     {
+       
         if (Auth::check()) {
-            $request->Client()->currentAccessToken()->delete();
+            $request->user()->currentAccessToken()->delete();
         }
-    
         return response()->json(['message' => 'Successfully logged out']);
     }
-
 
     
     public function active(Request $request, $id)
@@ -47,12 +49,12 @@ class AuthController extends Controller
         if (!$client) {
             return response()->json([
                 'error' => 'Invalid credentials'
-            ]);
+            ],400);
         }
         if ($request->activation_code !== $client->activation_code) {
             return response()->json([
                 'error' => 'Invalid activation code'
-            ]);
+            ],400);
         }
     
         $client->active = 1;
@@ -60,7 +62,7 @@ class AuthController extends Controller
         return response()->json([
             'message' => 'Successfully activated user!',
             'user' => $client
-        ]);
+        ],200);
         
     }
 
