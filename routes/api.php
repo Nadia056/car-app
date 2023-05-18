@@ -3,12 +3,11 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BikeController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\ClientController;
-use App\Http\Controllers\VehicleController;
-use App\Http\Middleware\CheckRole;
-use Illuminate\Foundation\Mix;
+use App\Http\Controllers\crud7Controller;
+use App\Http\Controllers\crud8Controller;
+use App\Http\Controllers\crud9Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Models\User;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -22,37 +21,6 @@ use App\Models\User;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::post('/getuser', [ClientController::class, 'returnUser']);
-Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/CarUser/{id}', [VehicleController::class, 'CarUSer']);
-    Route::get('/BikeUser/{id}', [VehicleController::class, 'BikeUSer']);
-    Route::post('/CAR',[VehicleController::class,'RegisterCar']);
-    Route::post('/BIKE',[VehicleController::class,'RegisterBike']);
-    
-    Route::get('/clients', [ClientController::class, 'show'])->middleware(CheckRole::class . ':admin');
-    Route ::delete('/clients/{id}', [ClientController::class, 'delete'])->middleware(CheckRole::class . ':admin');
-    Route::get('/allusers', [ClientController::class, 'Users'])->middleware(CheckRole::class . ':admin');
-});
-Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/bikes', [BikeController::class, 'show'])->middleware(CheckRole::class . ':admin');
-    Route::get('/bikes/{id}', [BikeController::class, 'showone']);
-    Route::post('/bikes', [BikeController::class, 'store'])->middleware(CheckRole::class . ':admin');
-    Route::put('/bikes/{id}', [BikeController::class, 'update'])->middleware(CheckRole::class . ':admin');
-    Route::delete('/bikes/{id}', [BikeController::class, 'delete'])->middleware(CheckRole::class . ':admin');
-});
-Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/cars', [CarController::class, 'show']);
-    Route::get('/cars/{id}', [CarController::class, 'showone']);
-    Route::post('/cars', [CarController::class, 'store'])->middleware(CheckRole::class . ':admin');
-    Route::put('/cars/{id}', [CarController::class, 'update'])->middleware(CheckRole::class . ':admin');
-    Route ::delete('/cars/{id}', [CarController::class, 'delete'])->middleware(CheckRole::class . ':admin');
-});
-
-
-
-
-
-
 
 //practica3
 Route::post('/practica3', [BikeController::class, 'store']);
@@ -76,20 +44,26 @@ Route::put('/clients/{id}', [ClientController::class, 'update'])->middleware('au
 
 
 //practica 7
-
-//creacion de long polling
-Route::get('/entity/{id}', function ($id) {
-    $entity = User::find($id);
-    $status = $entity->active;
-    $attemps=1;
-    while ($status == 0 && $attemps<5) {
-        sleep(2);
-
-        $status= $entity->refresh()->active;
-        $attemps++;
-        
-    }
+Route::post('/practica7', [crud7Controller::class, 'store']);
+Route::get('/practica7', [crud7Controller::class, 'index']);
+Route ::delete('/practica7/{id}', [crud7Controller::class, 'delete']);
+Route::put('/practica7/{id}', [crud7Controller::class, 'update']);
 
 
-    return response()->json($entity);
-});
+//practica 8
+Route::get('practica8', [crud8Controller::class, 'index']);
+Route::get('practica8B/{id}', [crud8Controller::class, 'book']);
+Route::post('practica8', [crud8Controller::class, 'store']);
+Route::put('practica8/{id}', [crud8Controller::class, 'update']);
+Route::delete('practica8/{id}', [crud8Controller::class, 'destroy']);
+
+//practica 9 
+Route::post('/practica9', [crud9Controller::class, 'store']);
+Route::get('/practica9',[crud9Controller::class,'index']);
+Route::delete('/practica9/{id}', [crud9Controller::class, 'delete']);
+Route::put('/practica9/{id}', [crud9Controller::class, 'update']);
+
+
+
+
+

@@ -17,9 +17,9 @@ class admin extends Seeder
     {
         $admin = new Client();
         $admin->name = 'admin';
-        $admin->email = 'admin123@gmail.com';
-        $admin->password =Hash::make( '12345678');
-        $admin->phone='8717453045';
+        $admin->email = 'admin@gmail.com';
+        $admin->password =Hash::make( 'adminadmin');
+        $admin->phone='8715854676';
         $admin->role= 1;
         $admin->active=1;
         

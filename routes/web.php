@@ -1,7 +1,13 @@
 <?php
 
+use App\Events\MessageEvent;
+use App\Events\SSEEvent;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\crud8Controller;
+use App\Models\Book;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Route;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,3 +25,20 @@ Route::get('/', function () {
 });
 Route::get('confirm/{id}', [ClientController::class,'confirm'])->name('confirm');
 
+Route::get('/stream-books', [crud8Controller::class, 'streamBooks']);
+
+Route::get('/sse', function () {
+    $message = 'Sample message';
+
+    Event::dispatch(new SSEEvent($message));
+    return response()->json(['message' => $message]);
+});
+
+Route::post('/websocket/message', [WebSocketController::class, 'handleMessage']);
+
+Route::get('/DIOS', function () {
+    $message = 'DIOS';
+
+    Event::dispatch(new MessageEvent($message));
+    return response()->json(['message' => $message]);
+});
