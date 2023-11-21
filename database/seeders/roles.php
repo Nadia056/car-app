@@ -15,10 +15,10 @@ class roles extends Seeder
     
     {
         Rol::create([
-            'name' => 'user',
+            'name' => 'admin',
         ]);
         Rol::create([
-            'name' => 'admin',
+            'name' => 'user',
         ]);
         Rol::create([
             'name' => 'empleado',

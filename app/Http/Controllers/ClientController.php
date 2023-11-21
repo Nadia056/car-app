@@ -18,11 +18,13 @@ class ClientController extends Controller
         return $client;
 
     }
+    
     public function index(Request $request)
     {
         $user = $request->user();
         return $user;
-    }   
+    }  
+
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -73,6 +75,7 @@ class ClientController extends Controller
         $client->update($request->all());
         return response()->json($client);
     }
+
     public function delete(Request $request, $id)
     {
         $client = Client::find($id);
@@ -82,6 +85,7 @@ class ClientController extends Controller
         $client->delete($request->all());
         return response()->json('deleted');
     }
+
     public function confirm(Request $request,$id)
     {
         $client = Client::find($id);
@@ -93,8 +97,6 @@ class ClientController extends Controller
         return response()->json('confirmed');
     }
 
-
-    
     public function showOne($id)
     {
         $client = Client::find($id);
@@ -103,7 +105,7 @@ class ClientController extends Controller
         }
         return response()->json($client);
     }
-    //returna el id 
+  
     public function returnUser(Request $request)
     {
         $client = Client::where('email', $request->email)->first();
@@ -112,6 +114,7 @@ class ClientController extends Controller
         }
         return response()->json(['id'=>$client->id]);
     }
+
     public function Users()
     {
         $client=Client::all();

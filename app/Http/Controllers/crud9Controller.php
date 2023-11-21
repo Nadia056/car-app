@@ -32,7 +32,7 @@ class crud9Controller extends Controller
         ];
         
         $response = [
-            'event' => 'item-created',
+            'event' => 'item-updated',
             'data' => $data
         ];
 

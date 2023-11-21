@@ -19,3 +19,20 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
 Broadcast::channel('sse-channel', function ($user) {
     return true;
 });
+Broadcast::channel('battel-game', function ($user) {
+  return true;
+});
+
+Broadcast::channel('channel-game', function ($user) {
+  return true;
+});
+Broadcast::channel('ship-game', function ($user) {
+    return true;
+  });
+
+Broadcast::channel('sse-move', function () {
+    return true; 
+});
+
+
+

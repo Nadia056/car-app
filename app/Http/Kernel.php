@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\DeleteMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -22,6 +23,7 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \App\Http\Middleware\AddCorsHeaders::class,
+        \App\Http\Middleware\IncrementCounter::class
     ];
 
     /**
@@ -65,5 +67,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'check.role' => \App\Http\Middleware\CheckRole::class,
+        'delete'=>\App\Http\Middleware\DeleteMiddleware::class,
     ];
 }

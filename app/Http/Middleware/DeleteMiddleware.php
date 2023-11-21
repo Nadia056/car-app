@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class CheckRole
+class DeleteMiddleware
 {
     /**
      * Handle an incoming request.
@@ -18,11 +18,10 @@ class CheckRole
         $user = $request->user();
       
 
-        if ($user->role==1 || $user->role==3) {
+        if ($user->role==1) {
             return $next($request);
         }
 
         return response()->json(['error' => 'Unauthorized'], 401);
     }
-
 }

@@ -21,24 +21,6 @@ class crud8Controller extends Controller
         $item->title = $request->title;
         $item->author= $request->author;
         $item->description = $request->description;
-        $item->save();
-
-        $data = [
-            'id' => $item->id,
-            'title' => $item->title,
-            'author' => $item->author,
-            'description' => $item->description,
-            'created_at' => $item->created_at,
-            'updated_at' => $item->updated_at
-        ];
-        
-        $response = [
-            'event' => 'item-created',
-            'data' => $data
-        ];
-
-        $this->emitSSE($response['event'], $response['data']);
-        return response()->json($data, 200);
 
     }
 
@@ -50,23 +32,7 @@ class crud8Controller extends Controller
         $item->description = $request->description;
         $item->save();
 
-        $data = [
-            'id' => $item->id,
-            'title' => $item->title,
-            'author' => $item->author,
-            'description' => $item->description,
-            'created_at' => $item->created_at,
-            'updated_at' => $item->updated_at
-        ];
-
-        $response = [
-            'event' => 'item-updated',
-            'data' => $data
-        ];
-
-        $this->emitSSE($response['event'], $response['data']);
-        return response()->json($data, 200);
-
+       
 
     }
     public function book($id)
@@ -80,30 +46,28 @@ class crud8Controller extends Controller
         $item = Book::find($id);
         $item->delete();
 
-        // Emitir evento SSE
        
-        $response = [
-            'event' => 'item-deleted',
-            'data' => $id
-        ];
-
-        $this->emitSSE($response['event'], $response['data']);
-        return response()->json($response, 200);
-
     }
-
-    protected function emitSSE($event, $data)
+    public function eventSource()
     {
-        $response = [
-            'event' => $event,
-            'data' => $data
-        ];
-        
-
-        // Enviar evento SSE
-        event(new \App\Events\SSEEvent(json_encode($response)));
-    }
+        $start = time();
+        $maxExecution = ini_get('max_execution_time');
+        $response = new StreamedResponse(function() use ($start, $maxExecution) {
+            while (true) {
+                if (time() >= $start + $maxExecution) {
+                    exit();
+                }
+                echo 'data: ' . json_encode(Book::all()) . "\n\n";
+                flush();
+            }
+        });
     
+        $response->headers->set('Content-Type', 'text/event-stream');
+        $response->headers->set('X-Accel-Buffering', 'no');
+        $response->headers->set('Cache-Control', 'no-cache');
+    
+        return $response;
+    }
     
    
 }

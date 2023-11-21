@@ -34,11 +34,17 @@ Route::get('/sse', function () {
     return response()->json(['message' => $message]);
 });
 
-Route::post('/websocket/message', [WebSocketController::class, 'handleMessage']);
 
 Route::get('/DIOS', function () {
     $message = 'DIOS';
 
     Event::dispatch(new MessageEvent($message));
     return response()->json(['message' => $message]);
+});
+
+Route::get('/incrementar/{numero}', function ($numero) {
+    $arreglo = [];
+    $arreglo[] = $numero; // Agrega el número al arreglo
+
+    return response()->json(['arreglo' => $arreglo]);
 });
